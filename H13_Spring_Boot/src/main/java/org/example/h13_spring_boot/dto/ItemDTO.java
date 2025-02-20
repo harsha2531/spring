@@ -4,14 +4,16 @@ public class ItemDTO {
     private int id;
     private String name;
     private String price;
+    private String qtyOnHand;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(int id, String name, String price) {
+    public ItemDTO(int id, String name, String price, String qtyOnHand) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.qtyOnHand = qtyOnHand;
     }
 
     public int getId() {
@@ -36,5 +38,13 @@ public class ItemDTO {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getQtyOnHand() {
+        return qtyOnHand;
+    }
+
+    public void setQtyOnHand(String qtyOnHand) {
+        this.qtyOnHand = qtyOnHand;
     }
 }

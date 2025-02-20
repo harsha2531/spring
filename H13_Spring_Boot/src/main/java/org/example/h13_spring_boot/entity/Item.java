@@ -9,14 +9,16 @@ public class Item {
     private int id;
     private String name;
     private String price;
+    private String qtyOnHand;
 
     public Item() {
     }
 
-    public Item(int id, String name, String price) {
+    public Item(int id, String name, String price, String qtyOnHand) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.qtyOnHand = qtyOnHand;
     }
 
     public int getId() {
@@ -41,5 +43,13 @@ public class Item {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getQtyOnHand() {
+        return qtyOnHand;
+    }
+
+    public void setQtyOnHand(String qtyOnHand) {
+        this.qtyOnHand = qtyOnHand;
     }
 }

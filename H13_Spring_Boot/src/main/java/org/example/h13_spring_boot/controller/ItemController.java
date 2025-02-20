@@ -1,11 +1,9 @@
 package org.example.h13_spring_boot.controller;
 
-import org.example.h13_spring_boot.dto.CustomerDTO;
 import org.example.h13_spring_boot.dto.ItemDTO;
-import org.example.h13_spring_boot.entity.Customer;
 import org.example.h13_spring_boot.entity.Item;
 import org.example.h13_spring_boot.repo.ItemRepo;
-import org.example.h13_spring_boot.service.ItemService;
+import org.example.h13_spring_boot.service.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +13,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/item")
+@CrossOrigin(origins = "http://localhost:63342", allowedHeaders = "*")
 public class ItemController {
     @Autowired
-    private ItemService itemService;
+    private ItemServiceImpl itemService;
 
     @Autowired
     private ItemRepo itemRepo;
@@ -36,17 +35,19 @@ public class ItemController {
         return items.stream().map(item -> new ItemDTO(
                 item.getId(),
                 item.getName(),
-                item.getPrice()
+                item.getPrice(),
+                item.getQtyOnHand()
         )).collect(Collectors.toList());
     }
 
-    @PutMapping("/update/{id}")
-    public ItemDTO updateItem(@PathVariable int id, @RequestBody ItemDTO itemDTO){
-        Item updatedItem = itemService.updateItem(id, itemDTO);
+    @PutMapping("update")
+    public ItemDTO updateItem(@RequestBody ItemDTO itemDTO){
+        Item updatedItem = itemService.updateItem(itemDTO);
         return new ItemDTO(
                 updatedItem.getId(),
                 updatedItem.getName(),
-                updatedItem.getPrice()
+                updatedItem.getPrice(),
+                updatedItem.getQtyOnHand()
         );
     }
 
