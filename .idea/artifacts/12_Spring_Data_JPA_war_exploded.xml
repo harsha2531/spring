@@ -5,6 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="12_Spring_Data_JPA" />
+          <element id="module-output" name="10_BackEnd" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:6.2.2" />
@@ -58,6 +59,7 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="12_Spring_Data_JPA/web/Web" />
+      <element id="javaee-facet-resources" facet="10_BackEnd/web/Web" />
     </root>
   </artifact>
 </component>
