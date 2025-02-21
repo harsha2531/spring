@@ -95,6 +95,25 @@ $("#edit-btn").click(function (event){
     }
   });
 });
-$("#delete-btn").click(function (){
 
-})
+//delete customer
+$(document).on("click", ".delete-btn",function (){
+  const customerId = $(this).data("id");
+
+  if(!confirm("Are you sure you want to delete this customer..?"))
+    return;
+
+  $.ajax({
+    url: `http://localhost:8080/10_BackEnd_war_exploded/api/v1/customer/delete/${customerId}`,
+    method: "DELETE",
+    success: function (){
+      alert("Customer deleted successfully...");
+      $("#getAll-btn").click();
+    },
+    error: function (err){
+      console.error("Error deleting customer: ",err);
+      alert("Failed to delete customer..!");
+    }
+  });
+});
+
