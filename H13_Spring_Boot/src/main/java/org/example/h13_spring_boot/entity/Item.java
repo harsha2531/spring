@@ -1,7 +1,11 @@
 package org.example.h13_spring_boot.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Item {
@@ -11,6 +15,9 @@ public class Item {
     private String price;
     private String qtyOnHand;
 
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<OrderDetail>orderDetails;
+
     public Item() {
     }
 
@@ -19,6 +26,7 @@ public class Item {
         this.name = name;
         this.price = price;
         this.qtyOnHand = qtyOnHand;
+
     }
 
     public int getId() {
@@ -52,4 +60,6 @@ public class Item {
     public void setQtyOnHand(String qtyOnHand) {
         this.qtyOnHand = qtyOnHand;
     }
+
+
 }

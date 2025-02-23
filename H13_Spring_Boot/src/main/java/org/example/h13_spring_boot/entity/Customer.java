@@ -1,7 +1,11 @@
 package org.example.h13_spring_boot.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -10,14 +14,17 @@ public class Customer {
     private String name;
     private String address;
 
-    public Customer() {
+    @OneToMany(mappedBy = "customer")
+    private List<Orders> orders;
 
+    public Customer() {
     }
 
-    public Customer(int id, String name, String address) {
+    public Customer(int id, String name, String address, List<Orders> orders) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.orders = orders;
     }
 
     public int getId() {
@@ -42,5 +49,13 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }
