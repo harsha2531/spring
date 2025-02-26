@@ -6,6 +6,32 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Customer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="item.html">Item</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="order.html">Order</a>
+        </li>
+
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 <div class="container mt-4">
   <h1 class="text-center mb-4">Order Management</h1>
 
@@ -14,24 +40,44 @@
     <div class="card-header bg-primary text-white">Place New Order</div>
     <div class="card-body">
       <form id="order-form">
-        <div class="mb-3">
-          <label for="orderId" class="form-label">Order ID</label>
-          <input type="text" class="form-control" id="orderId" placeholder="Enter Order ID" required>
-        </div>
+        <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <tbody>
+              <tr>
+                <th width="100">Order ID:</th>
+                <td id="order-id"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         <div class="mb-3">
           <label class="form-label">Select Customer</label>
           <select id="customer-select" class="form-select">
             <option value="">Select Customer</option>
           </select>
         </div>
-        <div class="col-md-6">
-          <label for="orderDate" class="form-label">Order Date</label>
-          <input type="date" class="form-control" id="orderDate">
-        </div>
-        <div class="mb-3">
-          <label for="itemId" class="form-label">Item ID</label>
-          <input type="text" class="form-control" id="itemId" placeholder="Enter Item ID" required>
-        </div>
+          <div class="col-md-6">
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <tbody>
+                <tr>
+                  <th>Date:</th>
+                  <td id="order-date"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Select Item</label>
+              <select id="item-select" class="form-select">
+                <option value="">Select Item</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="unitPrice" class="form-label">Unit Price</label>
+              <input type="text" class="form-control" id="unitPrice" placeholder="Unit Price" readonly>
+            </div>
         <div class="mb-3">
           <label for="quantity" class="form-label">Quantity</label>
           <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity" required>
@@ -40,8 +86,8 @@
           <label for="totalPrice" class="form-label">Total Price</label>
           <input type="text" class="form-control" id="totalPrice" placeholder="Total Price" readonly>
         </div>
-        <button type="submit" class="btn btn-success">Place Order</button>
-        <button type="reset" class="btn btn-secondary">Clear</button>
+        <button type="submit" class="btn btn-success" id="placeOrder">Place Order</button>
+        <button type="reset" class="btn btn-secondary" id="clear">Clear</button>
       </form>
     </div>
   </div>
