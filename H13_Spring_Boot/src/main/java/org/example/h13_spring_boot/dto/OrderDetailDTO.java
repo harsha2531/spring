@@ -2,14 +2,14 @@ package org.example.h13_spring_boot.dto;
 
 public class OrderDetailDTO {
     private int qty;
-    private String total_price;
+    private double total_price;
     private int order_id;
     private int item_id;
 
     public OrderDetailDTO() {
     }
 
-    public OrderDetailDTO(int qty, String total_price, int order_id, int item_id) {
+    public OrderDetailDTO(int qty, double total_price, int order_id, int item_id) {
         this.qty = qty;
         this.total_price = total_price;
         this.order_id = order_id;
@@ -24,11 +24,11 @@ public class OrderDetailDTO {
         this.qty = qty;
     }
 
-    public String getTotal_price() {
+    public double getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(String total_price) {
+    public void setTotal_price(double total_price) {
         this.total_price = total_price;
     }
 

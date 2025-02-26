@@ -10,7 +10,7 @@ public class OrderDetail {
     @Id
     private int id;
     private int qty;
-    private String total_price;
+    private double total_price;
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
@@ -23,7 +23,7 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, int qty, String total_price, Item item, Orders orders) {
+    public OrderDetail(int id, int qty, double total_price, Item item, Orders orders) {
         this.id = id;
         this.qty = qty;
         this.total_price = total_price;
@@ -47,11 +47,11 @@ public class OrderDetail {
         this.qty = qty;
     }
 
-    public String getTotal_price() {
+    public double getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(String total_price) {
+    public void setTotal_price(double total_price) {
         this.total_price = total_price;
     }
 

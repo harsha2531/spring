@@ -10,19 +10,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/order")
-@CrossOrigin(origins = "http://localhost:63342", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:63342" ,allowedHeaders = "*")
 public class OrderController {
 
     @Autowired
     private OrderServiceImpl orderService;
 
     @PostMapping("place")
-    public String placeOrder(@RequestBody Orders order, @RequestBody List<OrderDetail> orderDetails){
-        try{
-            orderService.placeOrder(order, orderDetails);
-            return "Order placed successfully";
-        }catch(RuntimeException e){
+    public String placeOrder(@RequestBody Orders order) {
+        try {
+            orderService.placeOrder(order, order.getOrderDetails());
+            return "Order placed successfully!";
+        } catch (RuntimeException e) {
             return "Order failed: " + e.getMessage();
         }
+    }
+    @GetMapping("getAll")
+    public List<Orders> getAllOrders() {
+        return orderService.getAllOrders();  // Ensure this returns a List<Orders>
     }
 }

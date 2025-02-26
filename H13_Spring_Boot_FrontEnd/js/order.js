@@ -4,7 +4,7 @@ $(document).ready(function (){
   //Generate order id and date
   function generateOrderDetails(){
     let nextId = 1;
-    if (order_array.length > 0) {
+    if (orderList.length > 0) {
       nextId = Math.max(...order_array.map(o => parseInt(o.id.slice(1)))) + 1;
     }
     $("#order-id").text(`${nextId}`);
@@ -63,7 +63,7 @@ $(document).ready(function (){
   });
 
   //place order
-  $("#order-form").submit(function (event){
+  $("#order-form").submit(function (event) {
     event.preventDefault();
 
     let orderId = $("#order-id").text();
@@ -73,7 +73,7 @@ $(document).ready(function (){
     let qty = $("#quantity").val();
     let totalPrice = $("#totalPrice").val();
 
-    if (!customerId || !itemId || !qty){
+    if (!customerId || !itemId || !qty) {
       alert("Please fill in all fields..!");
       return;
     }
@@ -81,41 +81,41 @@ $(document).ready(function (){
     let orderData = {
       id: orderId,
       date: orderDate,
-      customer:{id:parseInt(customerId)},
-      orderDetails:[
+      customer: {id: parseInt(customerId)},
+      orderDetails: [
         {
-          item:{id:parseInt(itemId)},
-          qty:parseInt(qty),
-          totalPrice:parseFloat(totalPrice)
+          item: {id: parseInt(itemId)},
+          qty: parseInt(qty),
+          totalPrice: parseFloat(totalPrice)
         }
-        ]
-    }
-  });
+      ]
+    };
 
-  $.ajax({
-    url:"http://localhost:8080/api/v1/order/place",
-    method:"POST",
-    contentType: "application/json",
-    data: JSON.stringify(orderData),
-    success:function (response){
-      alert("Order placed successfully..!");
-      generateOrderDetails();
-    },
-    error:function(){
-      alert("Failed to place order..");
-    }
-  });
-
-  function fetchOrders(){
     $.ajax({
-      url:"http://localhost:8080/api/v1/order",
-      method:"GET",
-      success:function (orders){
+      url: "http://localhost:8080/api/v1/order/place",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(orderData),
+      success: function (response) {
+        alert("Order placed successfully..!");
+        fetchOrders();
+        generateOrderDetails();
+      },
+      error: function () {
+        alert("Failed to place order..");
+      }
+    });
+  });
+  /*function fetchOrders() {
+    $.ajax({
+      url: "http://localhost:8080/api/v1/order",
+      method: "GET",
+      success: function (orders) {
         let tableBody = $("#order-table-body");
         tableBody.empty();
 
         orders.forEach(order => {
-          order.orderDetails.forEach(detail =>{
+          order.orderDetails.forEach(detail => {
             tableBody.append(`
                 <tr>
                 <td>${order.id}</td>
@@ -129,8 +129,37 @@ $(document).ready(function (){
           });
         });
       },
-      error:function (){
+      error: function () {
         alert("Failed to fetch orders..!");
+      }
+    });
+  }*/
+
+  function fetchOrders() {
+    $.ajax({
+      url: "http://localhost:8080/api/v1/order/getAll",
+      method: "GET",
+      success: function (orders) {
+        let tableBody = $("#order-table-body");
+        tableBody.empty();
+
+        orders.forEach(order => {
+          order.orderDetails.forEach(detail => {
+            tableBody.append(`
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.customer.id}</td>
+                                <td>${detail.item.id}</td>
+                                <td>${detail.qty}</td>
+                                <td>$${detail.total_price}</td>
+                                <td><button class="btn btn-danger btn-sm delete-order" data-id="${order.id}">Delete</button></td>
+                            </tr>
+                        `);
+          });
+        });
+      },
+      error: function () {
+        alert("Failed to fetch orders.");
       }
     });
   }
