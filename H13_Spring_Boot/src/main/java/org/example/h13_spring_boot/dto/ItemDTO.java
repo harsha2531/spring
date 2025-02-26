@@ -3,13 +3,13 @@ package org.example.h13_spring_boot.dto;
 public class ItemDTO {
     private int id;
     private String name;
-    private String price;
+    private double price;
     private int qtyOnHand;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(int id, String name, String price, int qtyOnHand) {
+    public ItemDTO(int id, String name, double price, int qtyOnHand) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,11 +32,11 @@ public class ItemDTO {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

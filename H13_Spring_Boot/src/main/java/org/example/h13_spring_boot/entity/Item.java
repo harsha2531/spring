@@ -12,7 +12,7 @@ public class Item {
     @Id
     private int id;
     private String name;
-    private String price;
+    private double price;
     private int qtyOnHand;
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL,orphanRemoval = true)
@@ -21,7 +21,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(int id, String name, String price, int qtyOnHand) {
+    public Item(int id, String name, double price, int qtyOnHand) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -45,11 +45,11 @@ public class Item {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
