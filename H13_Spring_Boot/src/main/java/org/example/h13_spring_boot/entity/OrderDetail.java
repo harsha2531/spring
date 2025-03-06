@@ -1,13 +1,11 @@
 package org.example.h13_spring_boot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class OrderDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int qty;
     private double total_price;
@@ -69,6 +67,17 @@ public class OrderDetail {
 
     public void setOrders(Orders orders) {
         this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "id=" + id +
+                ", qty=" + qty +
+                ", total_price=" + total_price +
+                ", item=" + item +
+                ", orders=" + orders +
+                '}';
     }
 }
 

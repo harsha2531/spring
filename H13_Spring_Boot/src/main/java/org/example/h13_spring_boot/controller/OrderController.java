@@ -1,9 +1,11 @@
 package org.example.h13_spring_boot.controller;
 
+import org.example.h13_spring_boot.dto.OrderRequestDTO;
 import org.example.h13_spring_boot.entity.OrderDetail;
 import org.example.h13_spring_boot.entity.Orders;
 import org.example.h13_spring_boot.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +19,13 @@ public class OrderController {
     private OrderServiceImpl orderService;
 
     @PostMapping("place")
-    public String placeOrder(@RequestBody Orders order) {
+    public ResponseEntity<?> placeOrder(@RequestBody OrderRequestDTO orderRequest) {
         try {
-            orderService.placeOrder(order, order.getOrderDetails());
-            return "Order placed successfully!";
+            System.out.println("Received OrderRequest: " + orderRequest);
+            orderService.placeOrder(orderRequest.getOrder(),orderRequest.getOrderDetails());
+            return ResponseEntity.ok("Order placed successfully");
         } catch (RuntimeException e) {
-            return "Order failed: " + e.getMessage();
+            return ResponseEntity.ok("Order failed: " + e.getMessage());
         }
     }
     @GetMapping("getAll")

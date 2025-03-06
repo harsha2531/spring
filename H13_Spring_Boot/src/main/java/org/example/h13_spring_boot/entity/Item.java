@@ -61,5 +61,14 @@ public class Item {
         this.qtyOnHand = qtyOnHand;
     }
 
-
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", qtyOnHand=" + qtyOnHand +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
 }

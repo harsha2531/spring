@@ -140,6 +140,7 @@ $(document).ready(function (){
       url: "http://localhost:8080/api/v1/order/getAll",
       method: "GET",
       success: function (orders) {
+        console.log("Orders fetched:",orders);
         let tableBody = $("#order-table-body");
         tableBody.empty();
 
@@ -151,7 +152,7 @@ $(document).ready(function (){
                                 <td>${order.customer.id}</td>
                                 <td>${detail.item.id}</td>
                                 <td>${detail.qty}</td>
-                                <td>$${detail.total_price}</td>
+                                <td>${detail.totalPrice}</td>
                                 <td><button class="btn btn-danger btn-sm delete-order" data-id="${order.id}">Delete</button></td>
                             </tr>
                         `);

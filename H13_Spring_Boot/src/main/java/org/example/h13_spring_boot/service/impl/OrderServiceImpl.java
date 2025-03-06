@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     public void placeOrder(Orders order, List<OrderDetail> orderDetails) {
+        System.out.println("Place order: "+order);
         ordersRepo.save(order);
 
         for(OrderDetail orderDetail : orderDetails){
