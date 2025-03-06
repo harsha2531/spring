@@ -1,3 +1,4 @@
+/*
 package org.example.h13_spring_boot.dto;
 
 public class OrderDetailDTO {
@@ -48,3 +49,56 @@ public class OrderDetailDTO {
         this.item_id = item_id;
     }
 }
+*/
+
+package org.example.h13_spring_boot.dto;
+
+public class OrderDetailDTO {
+    private int itemId;
+    private int quantity;
+    private double totalPrice;
+    private double unitPrice;
+
+    public OrderDetailDTO() {
+    }
+
+    public OrderDetailDTO(int itemId, int quantity, double totalPrice, double unitPrice) {
+        this.itemId = itemId;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.unitPrice = unitPrice;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+}
+

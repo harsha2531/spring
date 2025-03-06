@@ -51,12 +51,12 @@
               </tbody>
             </table>
           </div>
-        <div class="mb-3">
-          <label class="form-label">Select Customer</label>
-          <select id="customer-select" class="form-select">
-            <option value="">Select Customer</option>
-          </select>
-        </div>
+          <div class="mb-3">
+            <label class="form-label">Select Customer</label>
+            <select id="customer-select" class="form-select">
+              <option value="">Select Customer</option>
+            </select>
+          </div>
           <div class="col-md-6">
             <div class="table-responsive">
               <table class="table table-sm">
@@ -78,16 +78,47 @@
               <label for="unitPrice" class="form-label">Unit Price</label>
               <input type="text" class="form-control" id="unitPrice" placeholder="Unit Price" readonly>
             </div>
-        <div class="mb-3">
-          <label for="quantity" class="form-label">Quantity</label>
-          <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity" required>
+            <div class="mb-3">
+              <label for="qtyOnHand" class="form-label">Quantity On Hand</label>
+              <input type="text" class="form-control" id="qtyOnHand" placeholder="Quantity On Hand" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity" required>
+            </div>
+            <div class="mb-3">
+              <label for="totalPrice" class="form-label">Total Price</label>
+              <input type="text" class="form-control" id="totalPrice" placeholder="Total Price" readonly>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <button type="button" class="btn btn-primary" id="addToCart">Add to Cart</button>
+
+            <!-- Cart Details Table -->
+            <div class="mt-4">
+              <h5>Cart Details</h5>
+              <table class="table table-bordered">
+                <thead class="table-secondary">
+                <tr>
+                  <th>Item ID</th>
+                  <th>Item Name</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Total Price</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="cart-table-body">
+                <!-- Cart items will be added here dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <div>Grand Total: <span id="grandTotal">0.00</span></div>
+            <!-- Place Order & Clear Buttons -->
+            <button type="submit" class="btn btn-success" id="placeOrder">Place Order</button>
+            <button type="reset" class="btn btn-secondary" id="clear">Clear</button>
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="totalPrice" class="form-label">Total Price</label>
-          <input type="text" class="form-control" id="totalPrice" placeholder="Total Price" readonly>
-        </div>
-        <button type="submit" class="btn btn-success" id="placeOrder">Place Order</button>
-        <button type="reset" class="btn btn-secondary" id="clear">Clear</button>
       </form>
     </div>
   </div>

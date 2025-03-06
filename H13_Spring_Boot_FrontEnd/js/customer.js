@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // Load all customers
   $("#customer-getAll-btn").click(function (event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault();
     console.log("Fetching all customers...");
 
     $.ajax({

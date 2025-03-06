@@ -1,3 +1,4 @@
+/*
 package org.example.h13_spring_boot.entity;
 
 import jakarta.persistence.*;
@@ -81,3 +82,87 @@ public class OrderDetail {
     }
 }
 
+*/
+
+package org.example.h13_spring_boot.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+public class OrderDetail {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    private int quantity;
+    private double unitPrice;
+    private double totalPrice;
+
+    public OrderDetail() {
+    }
+
+    public OrderDetail( Orders order, Item item, int quantity, double unitPrice) {
+        this.order = order;
+        this.item = item;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+}
