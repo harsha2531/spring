@@ -21,6 +21,4 @@ import java.util.List;
 
 public interface OrderService {
     void placeOrder(OrderDTO orderDTO);
-    List<OrderDTO> getAllOrders();
-    public List<OrderDetailDTO> getOrderDetails(Long orderId);
 }

@@ -4,6 +4,7 @@ import org.example.h13_spring_boot.dto.OrderDTO;
 import org.example.h13_spring_boot.dto.OrderDetailDTO;
 import org.example.h13_spring_boot.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,18 @@ public class OrderController {
         return "Order placed successfully";
     }
 
-    @GetMapping("getAll")
-    public List<OrderDTO> getAllOrders() {
-        return orderService.getAllOrders();
+    @GetMapping("/getAll")
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        return ResponseEntity.ok(orderService.getAllOrders());
     }
-    @GetMapping("/api/v1/order/details/{orderId}")
-    public List<OrderDetailDTO> getOrderDetails(@PathVariable Long orderId) {
-        return orderService.getOrderDetails(orderId);
+
+    @GetMapping("/nextId")
+    public ResponseEntity<String> getNextOrderId() {
+        return ResponseEntity.ok(orderService.generateNextOrderId());
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable String orderId) {
+        return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
 }

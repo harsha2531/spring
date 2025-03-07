@@ -11,6 +11,5 @@ import java.util.List;
 
 @Repository
 public interface OrderDetailRepo extends CrudRepository<OrderDetail, Integer> {
-    List<OrderDetail> findByOrderId(Long orderId);
 
 }

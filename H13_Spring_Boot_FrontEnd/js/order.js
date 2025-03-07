@@ -467,200 +467,235 @@ function setOrderDate() {
 }*/
 
 //=============================================================================
-$(document).ready(function () {
-  let cartItems = [];
-  let grandTotal = 0;
+let items = [];
+let cart = [];
+let grandTotal = 0;
 
-  // Load customers and items for the dropdowns
+// Load initial data when the page loads
+$(document).ready(function () {
   loadCustomers();
   loadItems();
+  generateOrderId();
+  $('#order-date').text(new Date().toISOString().split('T')[0]);
 
-  // Add item to cart when Add to Cart button is clicked
-  $('#addToCart').on('click', function () {
-    const itemId = $('#item-select').val();
-    const quantity = parseInt($('#quantity').val());
-    const unitPrice = parseFloat($('#unitPrice').val());
-    const qtyOnHand = parseInt($('#qtyOnHand').val());
+  $('#item-select').on('change', handleItemSelect);
+  $('#addToCart').on('click', addToCart);
+  $('#placeOrder').on('click', placeOrder);
+  $('#clear').on('click', clearForm);
+});
 
-    if (!itemId || quantity <= 0 || quantity > qtyOnHand) {
-      alert('Please select a valid item and quantity.');
-      return;
-    }
+// Load customers from backend
+function loadCustomers() {
+  fetch('http://localhost:8080/api/v1/customer/getAll')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(customer => {
+        $('#customer-select').append(`<option value="${customer.id}">${customer.name}</option>`);
+      });
+    })
+    .catch(error => console.error('Error loading customers:', error));
+}
 
-    const totalPrice = unitPrice * quantity;
+// Load items from backend
+function loadItems() {
+  fetch('http://localhost:8080/api/v1/item/getAll')
+    .then(response => response.json())
+    .then(data => {
+      items = data;
+      data.forEach(item => {
+        $('#item-select').append(`<option value="${item.id}">${item.name}</option>`);
+      });
+    })
+    .catch(error => console.error('Error loading items:', error));
+}
 
-    // Add the item to the cart array
-    cartItems.push({ itemId, quantity, unitPrice, totalPrice });
+// Generate new order ID (You could also fetch from backend if required)
+function generateOrderId() {
+  fetch('http://localhost:8080/api/v1/order/nextId')
+    .then(response => response.text())
+    .then(orderId => {
+      $('#order-id').text(orderId);
+    })
+    .catch(error => console.error('Error generating order ID:', error));
+}
 
-    // Update the cart table
-    updateCartTable();
-    updateGrandTotal();
+// Handle item selection
+function handleItemSelect() {
+  let selectedItemId = $(this).val();
+  let selectedItem = items.find(item => item.id == selectedItemId);
+
+  if (selectedItem) {
+    $('#unitPrice').val(selectedItem.price.toFixed(2));
+    $('#qtyOnHand').val(selectedItem.qtyOnHand);
+  } else {
+    $('#unitPrice').val('');
+    $('#qtyOnHand').val('');
+  }
+}
+
+// Add selected item to cart
+function addToCart() {
+  let itemId = $('#item-select').val();
+  let quantity = parseInt($('#quantity').val());
+
+  if (!itemId || isNaN(quantity) || quantity <= 0) {
+    alert('Please select an item and enter valid quantity.');
+    return;
+  }
+
+  let selectedItem = items.find(item => item.id == itemId);
+
+  if (!selectedItem) {
+    alert('Invalid item selected.');
+    return;
+  }
+
+  if (quantity > selectedItem.qtyOnHand) {
+    alert('Not enough stock available.');
+    return;
+  }
+
+  let existingCartItem = cart.find(item => item.itemId == itemId);
+
+  if (existingCartItem) {
+    existingCartItem.quantity += quantity;
+    existingCartItem.totalPrice += quantity * selectedItem.price;
+  } else {
+    cart.push({
+      itemId: itemId,
+      itemName: selectedItem.name,
+      unitPrice: selectedItem.price,
+      quantity: quantity,
+      totalPrice: quantity * selectedItem.price
+    });
+  }
+
+  updateCartTable();
+  calculateGrandTotal();
+}
+
+// Update cart table
+function updateCartTable() {
+  let cartTableBody = $('#cart-table-body');
+  cartTableBody.empty();
+
+  cart.forEach((item, index) => {
+    cartTableBody.append(`
+            <tr>
+                <td>${item.itemId}</td>
+                <td>${item.itemName}</td>
+                <td>${item.unitPrice.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>${item.totalPrice.toFixed(2)}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="removeCartItem(${index})">Remove</button></td>
+            </tr>
+        `);
   });
+}
 
-  // Submit order
-  $('#placeOrder').on('click', function (e) {
-    e.preventDefault();
+// Calculate grand total
+function calculateGrandTotal() {
+  grandTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  $('#grandTotal').text(grandTotal.toFixed(2));
+}
 
-    if (cartItems.length === 0) {
-      alert('Please add items to the cart.');
-      return;
-    }
+// Remove item from cart
+function removeCartItem(index) {
+  cart.splice(index, 1);
+  updateCartTable();
+  calculateGrandTotal();
+}
 
-    // Prepare order data
-    const customerId = $('#customer-select').val();
-    const orderDate = new Date().toISOString().split('T')[0];
-    const orderDetails = cartItems.map(item => ({
+// Place order
+function placeOrder(event) {
+  event.preventDefault();
+
+  let customerId = $('#customer-select').val();
+  let orderDate = $('#order-date').text();
+
+  if (!customerId || cart.length === 0) {
+    alert('Please select customer and add items to cart.');
+    return;
+  }
+
+  let orderDTO = {
+    customerId: customerId,
+    date: orderDate,
+    orderDetails: cart.map(item => ({
       itemId: item.itemId,
       quantity: item.quantity,
-      totalPrice: item.totalPrice
-    }));
-
-    const orderData = {
-      customerId,
-      orderDate,
-      orderDetails
-    };
-
-    // Save the order via API
-    saveOrder(orderData);
-  });
-
-  // Clear the form
-  $('#clear').on('click', function () {
-    cartItems = [];
-    $('#order-form')[0].reset();
-    updateCartTable();
-    updateGrandTotal();
-  });
-
-  // Fetch customers and populate the customer select dropdown
-  function loadCustomers() {
-    $.get('http://localhost:8080/api/v1/customer/getAll', function (data) {
-      const customerSelect = $('#customer-select');
-      data.forEach(customer => {
-        customerSelect.append(new Option(customer.name, customer.id));
-      });
-    });
-  }
-
-  // Fetch items and populate the item select dropdown
- /* function loadItems() {
-    $.get('http://localhost:8080/api/v1/item/getAll', function (data) {
-      const itemSelect = $('#item-select');
-      data.forEach(item => {
-        itemSelect.append(new Option(item.name, item.id));
-      });
-
-      // Update the unit price and quantity on hand when item is selected
-      itemSelect.on('change', function () {
-        const selectedItemId = itemSelect.val();
-        if (selectedItemId) {
-          const selectedItem = data.find(item => item.id === selectedItemId);
-          $('#unitPrice').val(selectedItem.unitPrice);
-          $('#qtyOnHand').val(selectedItem.qtyOnHand);
-        }
-      });
-    });*/
-  function loadItems() {
-    fetch(`http://localhost:8080/api/v1/item/getAll`)
-      .then(response => response.json())
-      .then(items => {
-        const itemSelect = document.getElementById('item-select');
-        itemSelect.innerHTML = '<option value="">Select Item</option>';
-        items.forEach(item => {
-          const option = document.createElement('option');
-          option.value = item.id;
-          option.textContent = `${item.id} - ${item.name}`;
-          option.dataset.price = item.price;
-          option.dataset.qtyOnHand = item.qtyOnHand;
-          itemSelect.appendChild(option);
-        });
-      })
-      .catch(error => console.error('Error loading items:', error));
-
-  }
-
-  // Update the cart table
-  function updateCartTable() {
-    const cartTableBody = $('#cart-table-body');
-    cartTableBody.empty();
-    cartItems.forEach((item, index) => {
-      const row = `
-        <tr>
-          <td>${item.itemId}</td>
-          <td>${item.name}</td>
-          <td>${item.unitPrice}</td>
-          <td>${item.quantity}</td>
-          <td>${item.totalPrice.toFixed(2)}</td>
-          <td><button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button></td>
-        </tr>
-      `;
-      cartTableBody.append(row);
-    });
-  }
-
-  // Remove item from cart
-  window.removeFromCart = function (index) {
-    cartItems.splice(index, 1);
-    updateCartTable();
-    updateGrandTotal();
+      unitPrice: item.unitPrice
+    }))
   };
 
-  // Update the grand total
-  function updateGrandTotal() {
-    grandTotal = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-    $('#grandTotal').text(grandTotal.toFixed(2));
-  }
-
-  // Save the order using an API call
-  function saveOrder(orderData) {
-    $.ajax({
-      url: 'http://localhost:8080/api/v1/order/place',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(orderData),
-      success: function (response) {
+  fetch('http://localhost:8080/api/v1/order/place', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderDTO)
+  })
+    .then(response => {
+      if (response.ok) {
         alert('Order placed successfully!');
-        loadOrderDetails(response.orderId);  // Load the order details after placing the order
-      },
-      error: function (error) {
-        console.error('Error placing order:', error);
-        alert('Error placing order. Please try again.');
+        clearForm();
+        loadOrderDetails();
+      } else {
+        response.text().then(text => alert('Failed to place order: ' + text));
       }
-    });
-  }
+    })
+    .catch(error => console.error('Error placing order:', error));
+}
 
-  // Load the order details after placing the order
-  function loadOrderDetails(orderId) {
-    fetch(`http://localhost:8080/api/v1/order/details/${orderId}`)
-      .then(response => response.json())
-      .then(order => {
-        const orderTableBody = $('#order-table-body');
+// Clear form
+function clearForm() {
+  cart = [];
+  updateCartTable();
+  calculateGrandTotal();
+  $('#customer-select').val('');
+  $('#item-select').val('');
+  $('#unitPrice').val('');
+  $('#qtyOnHand').val('');
+  $('#quantity').val('');
+  $('#totalPrice').val('');
+  generateOrderId();
+}
+
+// Load all orders (you can load it when page loads or after order is placed)
+function loadOrderDetails() {
+  fetch('http://localhost:8080/api/v1/order/getAll')
+    .then(response => response.json())
+    .then(orders => {
+      const orderTableBody = $('#order-table-body');
+      orderTableBody.empty();
+
+      orders.forEach(order => {
         order.orderDetails.forEach(detail => {
           const row = `
-            <tr>
-              <td>${order.orderId}</td>
-              <td>${order.customerId}</td>
-              <td>${detail.itemId}</td>
-              <td>${detail.quantity}</td>
-              <td>${detail.unitPrice.toFixed(2)}</td>  <!-- Display unitPrice -->
-              <td>${detail.totalPrice.toFixed(2)}</td>
-              <td><button class="btn btn-info btn-sm" onclick="viewOrder(${order.orderId})">View Order</button></td>
-            </tr>
-          `;
+                        <tr>
+                            <td>${order.id}</td>
+                            <td>${order.customerId}</td>
+                            <td>${detail.itemId}</td>
+                            <td>${detail.quantity}</td>
+                            <td>${(detail.unitPrice * detail.quantity).toFixed(2)}</td>
+                            <td><button class="btn btn-info btn-sm" onclick="viewOrder(${order.id})">View Order</button></td>
+                        </tr>
+                    `;
           orderTableBody.append(row);
         });
-      })
-      .catch(error => console.error('Error loading order details:', error));
-  }
+      });
+    })
+    .catch(error => console.error('Error loading order details:', error));
+}
 
+// Optional: View order (if you want to load detailed view by orderId)
+function viewOrder(orderId) {
+  fetch(`http://localhost:8080/api/v1/order/${orderId}`)
+    .then(response => response.json())
+    .then(order => {
+      alert(`Order ID: ${order.id}\nDate: ${order.date}\nCustomer: ${order.customerId}`);
+    })
+    .catch(error => console.error('Error viewing order:', error));
+}
 
-  // View order details
-  window.viewOrder = function (orderId) {
-    // Redirect or show the order details
-    alert(`View details for Order ID: ${orderId}`);
-  };
-});
 
 
 

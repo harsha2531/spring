@@ -58,6 +58,7 @@ public class OrderServiceImpl implements OrderService {
 
 package org.example.h13_spring_boot.service.impl;
 
+import jakarta.persistence.criteria.Order;
 import org.example.h13_spring_boot.dto.OrderDTO;
 import org.example.h13_spring_boot.dto.OrderDetailDTO;
 import org.example.h13_spring_boot.entity.*;
@@ -115,37 +116,38 @@ public class OrderServiceImpl implements OrderService {
         orderRepo.save(order);
     }
 
-    @Override
-    public List<OrderDTO> getAllOrders() {
-        return orderRepo.findAll().stream().map(order -> new OrderDTO(
-                order.getId(),
-                order.getDate(),
-                order.getCustomer().getId(),
-                order.getOrderDetails().stream()
-                        .map(detail -> new OrderDetailDTO(
-                                detail.getItem().getId(),
-                                detail.getQuantity(),
-                                detail.getUnitPrice(),
-                                detail.getTotalPrice()))
-                        .collect(Collectors.toList())
-        )).collect(Collectors.toList());
-    }
 
-    @Override
-    public List<OrderDetailDTO> getOrderDetails(Long orderId) {
-        // Fetch the order details for the given order ID
-        List<OrderDetail> orderDetails = orderDetailRepo.findByOrderId(orderId);
-
-        // Convert the OrderDetail entities to OrderDetailDTOs
-        return orderDetails.stream()
-                .map(orderDetail -> new OrderDetailDTO(
-                        orderDetail.getItem().getId(),
-                        orderDetail.getQuantity(),
-                        orderDetail.getUnitPrice(),
-                        orderDetail.getTotalPrice()
-                ))
+   /* public List<OrderDTO> getAllOrders() {
+        List<Orders> order = orderRepo.findAll();
+        return order.stream()
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
-
     }
+
+    public String generateNextOrderId() {
+        String lastId = orderRepo.getLastOrderId();
+        if (lastId == null) {
+            return "ORD-001";
+        } else {
+            int idNum = Integer.parseInt(lastId.split("-")[1]);
+            return String.format("ORD-%03d", idNum + 1);
+        }
+    }
+
+    public OrderDTO getOrderById(Integer orderId) {
+        Orders order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        return convertToDTO(order);
+    }
+    private OrderDTO convertToDTO(Order order) {
+        List<OrderDetailDTO> details = order.getOrderDetails().stream()
+                .map(detail -> new OrderDetailDTO(
+                        detail.getItemId(),
+                        detail.getQuantity(),
+                        detail.getUnitPrice()
+                )).collect(Collectors.toList());
+
+        return new OrderDTO(order.getId(), order.getDate(), order.getCustomerId(), details);
+    }*/
 }
 
