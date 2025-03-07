@@ -18,6 +18,8 @@
         <option value="$PROJECT_DIR$/12_Spring_Data_JPA/pom.xml" />
         <option value="$PROJECT_DIR$/H13_Spring_Boot/pom.xml" />
         <option value="$PROJECT_DIR$/Z14_Spring_Security/pom.xml" />
+        <option value="$PROJECT_DIR$/Z_13_Springboot_Validation/pom.xml" />
+        <option value="$PROJECT_DIR$/Z_15_Spring_Boot_Loggins/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="07_Spring_Environment" />
+        <module name="Z_15_Spring_Boot_Loggins" />
         <module name="09_RESTController" />
         <module name="Z14_Spring_Security" />
         <module name="01_Spring_Core" />
@@ -16,6 +17,7 @@
         <module name="04_FullMode_Vs_LightMode" />
         <module name="08_Spring_Web_MVC" />
         <module name="H13_Spring_Boot" />
+        <module name="Z_13_Springboot_Validation" />
         <module name="05_Configuration" />
         <module name="02_Spring_Bean_LifeCycle" />
         <module name="03_Spring_DI" />
@@ -29,6 +31,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="H13_Spring_Boot" options="-parameters" />
       <module name="Z14_Spring_Security" options="-parameters" />
+      <module name="Z_13_Springboot_Validation" options="-parameters" />
+      <module name="Z_15_Spring_Boot_Loggins" options="-parameters" />
     </option>
   </component>
 </project>
