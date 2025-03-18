@@ -1,0 +1,54 @@
+2025-03-07T11:17:16.342+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Starting Z15SpringBootLogginsApplication using Java 17.0.6 with PID 14096 (C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework\Z_15_Spring_Boot_Loggins\target\classes started by Harsha Nimeda in C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework)
+2025-03-07T11:17:16.345+05:30 DEBUG 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-07T11:17:16.347+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-03-07T11:17:17.227+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-07T11:17:17.253+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-07T11:17:17.254+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-07T11:17:17.303+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-07T11:17:17.304+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 906 ms
+2025-03-07T11:17:17.622+05:30  WARN 14096 --- [Z_15_Spring_Boot_Loggins] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-03-07T11:17:17.639+05:30  INFO 14096 --- [Z_15_Spring_Boot_Loggins] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-03-07T11:17:17.661+05:30 ERROR 14096 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-03-07T11:18:34.520+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Starting Z15SpringBootLogginsApplication using Java 17.0.6 with PID 15260 (C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework\Z_15_Spring_Boot_Loggins\target\classes started by Harsha Nimeda in C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework)
+2025-03-07T11:18:34.522+05:30 DEBUG 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-07T11:18:34.523+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-03-07T11:18:35.304+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-07T11:18:35.314+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-07T11:18:35.314+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-07T11:18:35.379+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-07T11:18:35.379+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 813 ms
+2025-03-07T11:18:35.681+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-07T11:18:35.695+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Started Z15SpringBootLogginsApplication in 1.558 seconds (process running for 2.025)
+2025-03-07T11:20:05.828+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-07T11:20:05.829+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-07T11:20:05.831+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-03-07T11:20:05.883+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [http-nio-8080-exec-4] o.e.z.controller.DemoController          : trace message
+2025-03-07T11:20:33.224+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-07T11:20:33.297+05:30  INFO 15260 --- [Z_15_Spring_Boot_Loggins] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-03-07T11:20:36.251+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Starting Z15SpringBootLogginsApplication using Java 17.0.6 with PID 13684 (C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework\Z_15_Spring_Boot_Loggins\target\classes started by Harsha Nimeda in C:\Users\Harsha Nimeda\Desktop\Harsha\2nd Semester\Advanced API Development\Spring\Spring-Framework)
+2025-03-07T11:20:36.255+05:30 DEBUG 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-07T11:20:36.256+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-03-07T11:20:37.144+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-07T11:20:37.156+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-07T11:20:37.156+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-07T11:20:37.238+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-07T11:20:37.238+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 923 ms
+2025-03-07T11:20:37.568+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-07T11:20:37.576+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [main] o.e.z.Z15SpringBootLogginsApplication    : Started Z15SpringBootLogginsApplication in 1.777 seconds (process running for 2.325)
+2025-03-07T13:28:54.910+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-07T13:28:54.986+05:30  INFO 13684 --- [Z_15_Spring_Boot_Loggins] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
